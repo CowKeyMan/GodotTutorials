@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Materials/Red.material" type="Material" id=1]
+[ext_resource path="res://Scripts/Character/Character.cs" type="Script" id=2]
 
 [sub_resource type="CapsuleMesh" id=1]
 mid_height = 2.0
@@ -11,9 +12,11 @@ mid_height = 2.0
 height = 2.0
 
 [node name="Player" type="KinematicBody"]
+script = ExtResource( 2 )
+downwardsVelocity = -15.0
 
 [node name="Pill" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 2, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 2.26484, 4.31477e-08 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
 
@@ -22,11 +25,16 @@ transform = Transform( 0.349805, 0, 0, 0, 0.827452, -7.78186e-08, 0, -7.78186e-0
 mesh = SubResource( 2 )
 material/0 = ExtResource( 1 )
 
+[node name="Ground" type="MeshInstance" parent="Pill"]
+transform = Transform( 1.03729, 1.69241e-07, 0, -1.56626e-07, 1.12083, -8.18694e-09, 1.47301e-14, -1.0541e-07, -0.0870525, 0, 0.0499921, 2.1577 )
+mesh = SubResource( 2 )
+material/0 = ExtResource( 1 )
+
 [node name="Collider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 2, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 2.35066, 5.71292e-08 )
 shape = SubResource( 3 )
 
 [node name="GroundingRay" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-cast_to = Vector3( 0, -1.3, 0 )
+cast_to = Vector3( 0, -1.1, 0 )
 collision_mask = 2

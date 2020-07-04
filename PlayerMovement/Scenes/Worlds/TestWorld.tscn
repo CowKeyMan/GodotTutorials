@@ -1,13 +1,22 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Prefabs/Ground.tscn" type="PackedScene" id=1]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 8.86706, 0.504261, 8.91424 )
+
+[sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.576471, 0.576471, 0.576471, 1 )
 
-[sub_resource type="SphereMesh" id=1]
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 8.92371, 0.555123, 8.79757 )
 
-[sub_resource type="SphereShape" id=2]
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 8.95064, 0.372605, 8.79813 )
+
+[sub_resource type="SphereMesh" id=2]
+
+[sub_resource type="SphereShape" id=3]
 radius = 70.0
 
 [node name="Spatial" type="Spatial"]
@@ -17,12 +26,18 @@ radius = 70.0
 [node name="MeshInstance" parent="Ground" index="0"]
 transform = Transform( 8.8385, 0, 0, 0, 0.379642, 0, 0, 0, 8.8385, 0, 0, 0 )
 
+[node name="CollisionShape" parent="Ground" index="1"]
+shape = SubResource( 4 )
+
 [node name="Ground2" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 0.983464, -0.181103, 0, 0.181103, 0.983464, 0, 0, -15.9782 )
 
 [node name="MeshInstance" parent="Ground2" index="0"]
 transform = Transform( 8.8385, 0, 0, 0, 0.379642, 0, 0, 0, 8.8385, 0, 0, 0 )
-material/0 = SubResource( 3 )
+material/0 = SubResource( 1 )
+
+[node name="CollisionShape" parent="Ground2" index="1"]
+shape = SubResource( 5 )
 
 [node name="Ground3" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 0.825902, -0.563814, 0, 0.563814, 0.825902, 0, 4.17966, -31.7471 )
@@ -30,16 +45,19 @@ transform = Transform( 1, 0, 0, 0, 0.825902, -0.563814, 0, 0.563814, 0.825902, 0
 [node name="MeshInstance" parent="Ground3" index="0"]
 transform = Transform( 8.8385, 0, 0, 0, 0.379642, 0, 0, 0, 8.8385, 0, 0, 0 )
 
+[node name="CollisionShape" parent="Ground3" index="1"]
+shape = SubResource( 6 )
+
 [node name="BallGround" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0852966, -83.4079, 25.9195 )
 
 [node name="MeshInstance" parent="BallGround" index="0"]
 transform = Transform( 70, 0, 0, 0, 70, 0, 0, 0, 70, 0, 0, 0 )
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="CollisionShape" parent="BallGround" index="1"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [editable path="Ground"]
 
