@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Materials/Red.material" type="Material" id=1]
+
+[sub_resource type="CapsuleMesh" id=1]
+mid_height = 2.0
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="CapsuleShape" id=3]
+height = 2.0
+
+[node name="Player" type="KinematicBody"]
+
+[node name="Pill" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 2, 0 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 1 )
+
+[node name="Nose" type="MeshInstance" parent="Pill"]
+transform = Transform( 0.349805, 0, 0, 0, 0.827452, -7.78186e-08, 0, -7.78186e-08, 0.349805, 0, 1.18964, -0.776261 )
+mesh = SubResource( 2 )
+material/0 = ExtResource( 1 )
+
+[node name="Collider" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 2, 0 )
+shape = SubResource( 3 )
+
+[node name="GroundingRay" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+cast_to = Vector3( 0, -1.3, 0 )
+collision_mask = 2
