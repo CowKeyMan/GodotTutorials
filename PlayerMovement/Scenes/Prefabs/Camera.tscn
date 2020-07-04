@@ -5,7 +5,7 @@
 [node name="Camera" type="Spatial"]
 script = ExtResource( 1 )
 minRotationY = -0.1
-maxRotationY = 0.1
+maxRotationY = 0.3
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8 )
