@@ -13,49 +13,49 @@ public class Character : KinematicBody
 
   public override void _Ready()
   {
-    cam = GetNode<Camera>("../Camera/Camera");
-    groundingRay = GetNode<RayCast>("GroundingRay");
+	cam = GetNode<Camera>("../Camera/Camera");
+	groundingRay = GetNode<RayCast>("GroundingRay");
   }
 
   public Vector3 GetAxisDirection()
   { 
-    return (
-        (
-         cam.GlobalTransform.basis.x * InputManager.GetAxisHorizontal() 
-         + cam.GlobalTransform.basis.z * InputManager.GetAxisVertical()
-        )
-        * NoVertical).Normalized(); 
+	return (
+		(
+		 cam.GlobalTransform.basis.x * InputManager.GetAxisHorizontal() 
+		 + cam.GlobalTransform.basis.z * InputManager.GetAxisVertical()
+		)
+		* NoVertical).Normalized(); 
   }
 
   public override void _PhysicsProcess(float delta)
   {
-    Vector3 velocity = GetAxisDirection() * speed;
+	Vector3 direction = GetAxisDirection() * speed;
 
-    groundingRay.ForceRaycastUpdate();
-    
-    if(groundingRay.IsColliding() && groundingRay.GetCollisionNormal().AngleTo(Vector3.Up) < steepAngle) // check the ngle is not too steep
-    { 
-      Transform t = GlobalTransform;
-      t.origin.y = groundingRay.GetCollisionPoint().y;
-      GlobalTransform = t;
+	groundingRay.ForceRaycastUpdate();
+	
+	if(groundingRay.IsColliding() && groundingRay.GetCollisionNormal().AngleTo(Vector3.Up) < steepAngle) // check the ngle is not too steep
+	{ 
+	  Transform t = GlobalTransform;
+	  t.origin.y = groundingRay.GetCollisionPoint().y;
+	  GlobalTransform = t;
 
-      Vector3 normal = groundingRay.GetCollisionNormal();
-      Vector3 cross = GlobalTransform.basis.y.Cross(normal);
-      if(cross.Length() > 0.0001f) // If the current player angle is not already at the slope angle
-        Rotate(cross.Normalized(), GlobalTransform.basis.y.AngleTo(normal));
-      velocity = velocity.Rotated(Vector3.Up.Cross(normal).Normalized(), Vector3.Up.AngleTo(normal)); // Also rotate the velocity
-    } 
-    else
-    {
-      MoveAndSlide(new Vector3(0, downwardsVelocity, 0));
+	  Vector3 normal = groundingRay.GetCollisionNormal();
+	  Vector3 cross = GlobalTransform.basis.y.Cross(normal);
+	  if(cross.Length() > 0.0001f) // If the current player angle is not already at the slope angle
+		Rotate(cross.Normalized(), GlobalTransform.basis.y.AngleTo(normal));
+	  direction = direction.Rotated(Vector3.Up.Cross(normal).Normalized(), Vector3.Up.AngleTo(normal)); // Also rotate the direction
+	} 
+	else
+	{
+	  MoveAndSlide(new Vector3(0, downwardsVelocity, 0));
 
-      // If player is falling, align him
-      Vector3 normal = Vector3.Up;
-      Vector3 cross = GlobalTransform.basis.y.Cross(normal);
-      if(cross.Length() > 0.0001f) // If the current player angle is not already at the slope angle
-        Rotate(cross.Normalized(), GlobalTransform.basis.y.AngleTo(normal));
-    }
-    MoveAndSlide(velocity);
-    if(velocity.Length() > 0) LookAt(GlobalTransform.origin - velocity, GlobalTransform.basis.y);
+	  // If player is falling, align him
+	  Vector3 normal = Vector3.Up;
+	  Vector3 cross = GlobalTransform.basis.y.Cross(normal);
+	  if(cross.Length() > 0.0001f) // If the current player angle is not already at the slope angle
+		Rotate(cross.Normalized(), GlobalTransform.basis.y.AngleTo(normal));
+	}
+	MoveAndSlide(direction);
+	if(direction.Length() > 0) LookAt(GlobalTransform.origin - direction, GlobalTransform.basis.y);
   }
 }

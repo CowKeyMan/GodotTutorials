@@ -13,7 +13,9 @@ height = 2.0
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
+speed = 10.0
 downwardsVelocity = -1.0
+steepAngle = 0.8
 
 [node name="Pill" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 2.26484, 4.31477e-08 )
